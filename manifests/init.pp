@@ -17,7 +17,7 @@ class install_mysql (
     users => {
       'pulsar@localhost' => {
         ensure => present,
-        password => 'password'
+        password_hash => 'password'
       }
     }
   }
