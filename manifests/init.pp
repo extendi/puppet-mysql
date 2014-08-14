@@ -32,7 +32,9 @@ class install_mysql (
     ensure => present
   }
 
-  Class['::mysql::server'] -> Class['::mysql::server::backup']
+  class {'::mysql::client':}
+
+  Class['::mysql::server'] -> Class['::mysql::server::backup'] -> Class['::mysql::client']
 
 
 }
