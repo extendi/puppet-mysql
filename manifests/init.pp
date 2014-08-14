@@ -1,6 +1,8 @@
 class install_mysql (
   $root_password = 'root',
-  $innodb_buffer_pool_size = '128M'
+  $innodb_buffer_pool_size = '128M',
+  $application_user = 'user',
+  $application_password = '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19' # password
 ) {
 
   class {'::mysql::server':
@@ -15,9 +17,9 @@ class install_mysql (
       }
     },
     users => {
-      'pulsar@localhost' => {
+      "$application_user@localhost" => {
         ensure => present,
-        password_hash => '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19'
+        password_hash => $application_password
       }
     }
   }
