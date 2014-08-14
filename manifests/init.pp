@@ -1,4 +1,4 @@
-class mysql (
+class install_mysql (
   $root_password = 'root',
   $innodb_buffer_pool_size = '128M'
 ) {
