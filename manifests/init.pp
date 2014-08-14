@@ -13,9 +13,24 @@ class install_mysql (
         ensure => present,
         charset => 'utf8'
       }
+    },
+    users => {
+      'pulsar@localhost' => {
+        ensure => present,
+        password => 'password'
+      }
     }
   }
 
+  class {'::mysql::server::backup':
+    backupuser => 'backup',
+    backuppassword => 'backup',
+    backupdir => '/var/backups',
+    backuprotate => '5',
+    ensure => present
+  }
+
+  Class['::mysql::server'] -> Class['::mysql::server::backup']
 
 
 }
