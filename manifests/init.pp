@@ -22,15 +22,24 @@ class install_mysql (
         password_hash => $application_password
       }
     },
-    grants => {
-      "$application_user@localhost" => {
-        ensure => 'present',
-        options => ['GRANT'],
-        privileges => ['SELECT','INSERT','UPDATE','DELETE','CREATE','CREATE VIEW','SHOW VIEW','DROP','ALTER','INDEX'],
-        table => 'pulsarplatform_production.*',
-        user => '$application_user@localhost'
-      }
-    }
+    #grants => {
+    #  "$application_user@localhost" => {
+    #    ensure => 'present',
+    #    options => ['GRANT'],
+    #    privileges => ['SELECT','INSERT','UPDATE','DELETE','CREATE','CREATE VIEW','SHOW VIEW','DROP','ALTER','INDEX'],
+    #    table => 'pulsarplatform_production.*',
+    #    user => '$application_user@localhost'
+    #  }
+    #}
+  }
+
+  mysql_grant {'$application_user@localhost/pulsarplatform_production.*':
+    ensure     => 'present',
+    options    => ['GRANT'],
+    privileges => ['SELECT','INSERT','UPDATE','DELETE','CREATE','CREATE VIEW','SHOW VIEW','DROP','ALTER','INDEX'],
+    table      => 'pulsarplatform_production.*',
+    user       => 'pulsar@localhost'
+
   }
 
   class {'::mysql::server::backup':
