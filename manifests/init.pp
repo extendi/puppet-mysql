@@ -21,6 +21,15 @@ class install_mysql (
         ensure => present,
         password_hash => $application_password
       }
+    },
+    grants => {
+      "$application_user@localhost/pulsarplatform_production.*" => {
+        ensure => 'present',
+        options => ['GRANT'],
+        privileges => ['SELECT','INSERT','UPDATE','DELETE','CREATE','CREATE VIEW','SHOW VIEW','DROP','ALTER','INDEX'],
+        table => 'pulsarplatform_production.*',
+        user => '$application_user@localhost'
+      }
     }
   }
 
