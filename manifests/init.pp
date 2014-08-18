@@ -23,7 +23,7 @@ class install_mysql (
       }
     },
     grants => {
-      "$application_user@localhost/pulsarplatform_production.*" => {
+      "$application_user@localhost" => {
         ensure => 'present',
         options => ['GRANT'],
         privileges => ['SELECT','INSERT','UPDATE','DELETE','CREATE','CREATE VIEW','SHOW VIEW','DROP','ALTER','INDEX'],
