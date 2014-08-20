@@ -8,7 +8,12 @@ class install_mysql (
   class {'::mysql::server':
     root_password => $root_password,
     override_options => {
-      'mysqld' => {'innodb_buffer_pool_size' => $innodb_buffer_pool_size}
+      'mysqld' => {
+        'innodb_buffer_pool_size' => $innodb_buffer_pool_size,
+        'max_connections' => 800,
+        'max_connect_errors' => 10,
+        'connect_timeout' => 10,
+        }
     },
     databases => {
       'pulsarplatform_production' => {
@@ -19,7 +24,11 @@ class install_mysql (
     users => {
       "$application_user@localhost" => {
         ensure => present,
-        password_hash => $application_password
+        password_hash => $application_password,
+        max_connections_per_hour => '0',
+        max_queries_per_hour     => '0',
+        max_updates_per_hour     => '0',
+        max_user_connections     => '0',
       }
     },
     #grants => {
