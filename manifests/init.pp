@@ -20,17 +20,17 @@ class install_mysql (
         ensure => present,
         charset => 'utf8'
       }
-    },
-    users => {
-      "$application_user@localhost" => {
-        ensure => present,
-        password_hash => $application_password,
-        max_connections_per_hour => '0',
-        max_queries_per_hour     => '0',
-        max_updates_per_hour     => '0',
-        max_user_connections     => '0',
-      }
-    },
+    }
+    #users => {
+    #  "$application_user@localhost" => {
+    #    ensure => present,
+    #    password_hash => $application_password,
+    #    max_connections_per_hour => '0',
+    #    max_queries_per_hour     => '0',
+    #    max_updates_per_hour     => '0',
+    #    max_user_connections     => '0',
+    #  }
+    #},
     #grants => {
     #  "$application_user@localhost" => {
     #    ensure => 'present',
