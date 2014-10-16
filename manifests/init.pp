@@ -8,13 +8,13 @@ class install_mysql (
 
   class {'::mysql::server':
     root_password => $root_password,
-    bind_address => $bind_address,
     override_options => {
       'mysqld' => {
         'innodb_buffer_pool_size' => $innodb_buffer_pool_size,
         'max_connections' => 800,
         'max_connect_errors' => 10,
         'connect_timeout' => 10,
+        'bind_address' => $bind_address,
         }
     },
     databases => {
